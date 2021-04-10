@@ -12,7 +12,8 @@ will be used for all CMS 3.0 testing.
 * Test framework: Continue to use TestNG, but supplement with AssertJ.  
 * API: Switch from Jersey to RestAssured, but continue to provide wrapper classes
   to minimize required code in tests.
-* Persistence: Continue to use Spring behind wrapper classes for working with databases.
+* Persistence: Continue to use Spring behind wrapper classes for working with databases
+  and other technologies.
 * Build: Switch from Maven to Gradle
 
 
@@ -29,7 +30,7 @@ will be used for all CMS 3.0 testing.
 Three levels of wrapping will be provided for RestAssured.
 * Minimum level provides a RequestSpecification populated with the base URL of the
 API under test.  From there, use standard RestAssured coding to configure other
-  parts of the request.
+  parts of the request and make the request.
   
 Example
 ```java
@@ -51,7 +52,8 @@ ContentCoreClient.getReleaseApi( "187768943")
 ```
 
 * Maximum level provides a Response object after making the API call.
-Use this in cases where no manual configuration is needed.
+Use this in cases where no manual configuration is needed.  This requires the
+  least amount of code in a test.
   
 Example:
 ```java
@@ -64,7 +66,10 @@ ContentCoreClient.getRelease( "187768943")
 Database access will follow a similar pattern as before.  The old OracleInstanceManager
 has been revised to a generic DbInstanceManager that can work with any RDBMS.  The
 helper methods have been renamed to make more sense regarding what they do.  As before, "Data" classes will be used 
-to organize commonly used and related queries together.
+to organize commonly used and related queries together.  The helper methods
+have been revised to take a parameterized query string as would be used with String.format,
+so there's no longer a need to use that on the query string before passing it into the helper
+method.
 
 Example:
 ```java
