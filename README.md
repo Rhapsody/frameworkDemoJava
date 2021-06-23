@@ -28,8 +28,8 @@ will be used for all CMS 3.0 testing.
 
 ### API Framework
 Three levels of wrapping will be provided for RestAssured.
-* Minimum level provides a RequestSpecification populated with the base URL of the
-API under test.  From there, use standard RestAssured coding to configure other
+* Minimum level: Use this for maximum customization of request. It provides a RequestSpecification populated with the base URL of the
+API under test, but otherwise requires standard RestAssured patterns.  Use standard RestAssured coding to configure other
   parts of the request and make the request.
   
 Example
@@ -40,8 +40,8 @@ given(ContentCoreClient.releaseApi)
     .statusCode(200);
 ```
 
-* Mid level provides a RequestSpecification populated with the base URL of the
-  API under test along with any path parameters.  Use this for requests where
+* Mid level: Use this to further simplify API requests.  Provides a RequestSpecification populated with the base URL of the
+  API under test along with any path parameters.  Use this instead of the max level wrapper for requests where
   you need to also specify other things like headers or query parameters.
   
 Example:
@@ -51,7 +51,7 @@ ContentCoreClient.getReleaseApi( "187768943")
     .statusCode(200);
 ```
 
-* Maximum level provides a Response object after making the API call.
+* Maximum level: Use this for simple API requests.  Provides a Response object after making the API call.
 Use this in cases where no manual configuration is needed.  This requires the
   least amount of code in a test.
   
